@@ -2,7 +2,7 @@
 
 昔のデスクトップOSをイメージした、ブラウザ上で操作できるWebアプリです。
 
-[デモサイトを見る](https://app01.akiyo-fukuhara.work)
+[デモサイトを見る](https://app001.akiyo-fukuhara.work)
 
 ![デスクトップ画面](./screenshots/desktop.png)
 
