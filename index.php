@@ -5,8 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>JS練習ページ</title>
-  <link rel="stylesheet" href="./css/main.css">
+
+  <title>レトロOS風 JavaScript Webアプリ集</title>
+  <meta name="description" content="レトロOS風のデスクトップで、数当てゲームやお絵描きなどを楽しめる自主制作Webアプリです。">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="レトロOS風 JavaScript Webアプリ集">
+  <meta property="og:description" content="数当てゲームやお絵描きなどを楽しめるレトロOS風の自主制作Webアプリ。">
+  <meta property="og:url" content="https://app001.akiyo-fukuhara.work">
+  <meta property="og:image" content="https://app001.akiyo-fukuhara.work/assets/images/ogp-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" href="./assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="./assets/css/main.css">
 </head>
 
 <body id="retro_os_body">
@@ -334,7 +346,7 @@
     </div>
   </footer>
 
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="./assets/js/main.js"></script>
 </body>
 
 </html>

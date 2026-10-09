@@ -43,9 +43,9 @@ export function toggleWindow(app, forceState) {
 }
 
 
-/* ====================
+/* =========================================================
    ウィンドウ状態管理
-==================== */
+========================================================= */
 
 function bringToFront(targetApp) {
   const ordered = apps
@@ -154,13 +154,13 @@ function toggleMaximizedState(app) {
   const isMaximized =
     container.classList.contains("is_maximized");
 
-  /**
+  /*
    * 最小化中の場合
    */
   if (isMinimized) {
     container.classList.remove("is_minimized");
 
-    /**
+    /*
      * 「最大化 → 最小化」だった場合は
      * 最大化状態へ戻す
      */
@@ -179,7 +179,7 @@ function toggleMaximizedState(app) {
   }
 
 
-  /**
+  /*
    * 最大化中 → 通常へ戻す
    */
   if (isMaximized) {
@@ -193,7 +193,7 @@ function toggleMaximizedState(app) {
     return;
   }
 
-  /**
+  /*
    * 通常 → 最大化
    */
 
@@ -220,7 +220,7 @@ function toggleMinimizedState(app) {
   const isMinimized = container.classList.contains("is_minimized");
   const isMaximized = container.classList.contains("is_maximized");
 
-  /**
+  /*
    * 最小化中 → 復帰
    */
   if (isMinimized) {
@@ -239,7 +239,7 @@ function toggleMinimizedState(app) {
     return;
   }
 
-  /**
+  /*
    * 通常 / 最大化 → 最小化
    */
 
@@ -282,9 +282,9 @@ function notifyWindowLayoutChanged() {
 }
 
 
-/* ==============
+/* =========================================================
    サーバー保存
-============== */
+========================================================= */
 
 /**
  * 全ウィンドウの状態を保存
@@ -303,7 +303,7 @@ export function saveDesktopStateToLocal() {
 
     const isMinimized = app.container?.classList.contains("is_minimized") || false;
 
-    /**
+    /*
      * 最大化中は、見た目上のサイズではなく
      * 最大化直前のサイズを保存する
      */
@@ -328,7 +328,7 @@ export function saveDesktopStateToLocal() {
       isMaximized,
       isMinimized,
 
-      /**
+      /*
        * 最大化前のサイズもそのまま保存
        */
       restoreBounds:
@@ -344,9 +344,9 @@ export function saveDesktopStateToLocal() {
 }
 
 
-/* ====================
+/* =========================================================
    ドラッグ・リサイズ
-==================== */
+========================================================= */
 
 let activeDragApp = null;
 let activeResizeApp = null;
@@ -356,9 +356,9 @@ let activeResizeApp = null;
  */
 document.addEventListener("mousemove", (e) => {
 
-  /**
-   * ウィンドウ移動
-   */
+  /* ---------------------
+     ウィンドウ移動
+  --------------------- */
 
   if (activeDragApp) {
     const app = activeDragApp;
@@ -406,9 +406,9 @@ document.addEventListener("mousemove", (e) => {
   }
 
 
-  /**
-   * リサイズ
-   */
+  /* ---------------------
+     リサイズ
+  --------------------- */
 
   if (activeResizeApp) {
     const app = activeResizeApp;
@@ -442,9 +442,9 @@ document.addEventListener("mouseup", () => {
 });
 
 
-/* =========
+/* =========================================================
    初期化
-========= */
+========================================================= */
 
 export function initWindowEngine() {
 
@@ -452,9 +452,9 @@ export function initWindowEngine() {
   const footerNode = document.querySelector("footer");
 
 
-  /* =============================
-     タスクバー・スタートメニュー
-  ============================= */
+  /* =====================================================
+     A. タスクバー・スタートメニュー
+  ===================================================== */
 
   if (startBtn && footerNode) {
 
@@ -463,7 +463,7 @@ export function initWindowEngine() {
       e.stopPropagation();
       const isOpen = footerNode.classList.toggle("menu_open");
 
-      /**
+      /*
        * スマホ
        */
       if (window.innerWidth <= 1023 && isOpen) {
@@ -527,9 +527,9 @@ export function initWindowEngine() {
   }
 
 
-  /* ==============
-     各ウィンドウ
-  ============== */
+  /* =====================================================
+     B. 各ウィンドウ
+  ===================================================== */
 
   apps.forEach(app => {
 
@@ -539,7 +539,7 @@ export function initWindowEngine() {
       bringToFront(app);
     });
 
-    /**
+    /*
      * 初期状態
      */
     if (!app.container.style.display) {
@@ -549,9 +549,9 @@ export function initWindowEngine() {
     app.restoreBounds = app.restoreBounds || null;
     app.wasMaximizedBeforeMinimize = false;
 
-    /**
-     * デスクトップアイコン
-     */
+    /* ---------------------------------
+       デスクトップアイコン
+    --------------------------------- */
 
     app.icon?.addEventListener("click", () => {
 
@@ -575,9 +575,9 @@ export function initWindowEngine() {
     );
 
 
-    /**
-     * タスクバーボタン
-     */
+    /* ---------------------------------
+       タスクバーボタン
+    --------------------------------- */
 
     if (app.taskBtn) {
 
@@ -608,7 +608,7 @@ export function initWindowEngine() {
       }
       );
 
-      /**
+      /*
        * ダブルクリック
        * → 通常サイズへ戻して中央配置
        */
@@ -636,9 +636,9 @@ export function initWindowEngine() {
     }
 
 
-    /**
-     * タイトルバー
-     */
+    /* ---------------------------------
+       タイトルバー
+    --------------------------------- */
 
     const titleBar = app.container.querySelector(".win_title_bar");
 
@@ -646,7 +646,7 @@ export function initWindowEngine() {
 
     app.isTransformCleared = false;
 
-    /**
+    /*
      * ウィンドウ移動開始
      */
     titleBar.addEventListener("mousedown", () => {
@@ -654,9 +654,9 @@ export function initWindowEngine() {
     }
     );
 
-    /**
-     * リサイズ
-     */
+    /* ---------------------------------
+       リサイズ
+    --------------------------------- */
 
     const resizeHandle = app.container.querySelector(".win_resize_handle");
 
@@ -679,9 +679,9 @@ export function initWindowEngine() {
     );
 
 
-    /**
-     * 最大化
-     */
+    /* ---------------------------------
+       最大化
+    --------------------------------- */
 
     const maxBtn = titleBar.querySelector(".win_max_btn");
 
@@ -691,9 +691,9 @@ export function initWindowEngine() {
     }
     );
 
-    /**
-     * 閉じる
-     */
+    /* ---------------------------------
+       閉じる
+    --------------------------------- */
 
     const closeBtn = titleBar.querySelector("button[id$='Close'], button.win_close_btn");
 
@@ -704,9 +704,9 @@ export function initWindowEngine() {
     }
     );
 
-    /**
-     * 最小化
-     */
+    /* ---------------------------------
+       最小化
+    --------------------------------- */
 
     const minimizeBtn = titleBar.querySelector("button[id$='Minimize']");
 
@@ -718,9 +718,9 @@ export function initWindowEngine() {
   });
 }
 
-/* =======================
+/* =========================================================
    起動時の状態復元
-======================= */
+========================================================= */
 
 export function loadDesktopStateFromLocal() {
   try {
@@ -744,9 +744,9 @@ export function loadDesktopStateFromLocal() {
         return;
       }
 
-      /**
-       * 通常サイズ
-       */
+      /* -----------------------------
+         通常サイズ
+      ----------------------------- */
       if (savedApp.top) {
         app.container.style.top = savedApp.top;
       }
@@ -772,9 +772,10 @@ export function loadDesktopStateFromLocal() {
         app.isTransformCleared = true;
       }
 
-      /**
-       * 最大化前サイズを復元
-       */
+      /* -----------------------------
+         最大化前サイズを復元
+      ----------------------------- */
+
       if (savedApp.restoreBounds) {
         app.restoreBounds = {
           left: savedApp.restoreBounds.left,
@@ -786,32 +787,34 @@ export function loadDesktopStateFromLocal() {
 
       app.wasMaximizedBeforeMinimize = savedApp.wasMaximizedBeforeMinimize || false;
 
-      /**
+      /*
        * 一旦状態を全部解除
        */
       app.container.classList.remove("is_maximized", "is_minimized");
 
-      /**
-       *  スマホ
-       */
+      /* -----------------------------
+         スマホ
+      ----------------------------- */
+
       if (window.innerWidth <= 1023) {
         if (savedApp.isOpen) {
           setMobileMaximized(app);
         }
       }
 
-      /**
-       *  PC
-       */
+      /* -----------------------------
+         PC
+      ----------------------------- */
+
       else {
 
-        /**
+        /*
          * 最小化優先
          */
         if (savedApp.isMinimized) {
           app.container.classList.add("is_minimized");
 
-          /**
+          /*
            * 古い保存データで
            * max + min が両方trueだった場合への保険
            */
@@ -820,7 +823,7 @@ export function loadDesktopStateFromLocal() {
           }
         }
 
-        /**
+        /*
          * 最大化
          */
         else if (savedApp.isMaximized) {
@@ -838,9 +841,9 @@ export function loadDesktopStateFromLocal() {
 }
 
 
-/* =======================
+/* =========================================================
    画面サイズ変更時の防壁
-======================= */
+========================================================= */
 
 window.addEventListener("resize", () => {
   if (window.innerWidth >= 1024) {
